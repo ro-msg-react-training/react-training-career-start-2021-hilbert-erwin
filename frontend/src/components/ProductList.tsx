@@ -1,5 +1,6 @@
 import ProductDetail from './ProductDetail';
-import '../styles/ProductList.css';
+import { Grid, Paper } from '@material-ui/core';
+import { useProductListStyles } from '../styles/ProductListStyles';
 
 let data = [
     {
@@ -24,19 +25,18 @@ function ProductList() {
     let products = data.map((product, index) =>
         <ProductDetail key={index} {...product} />
     );
+    const classes = useProductListStyles();
 
     return (
-        <div className="Center">
-            <h1>Products</h1>
-            <div>
-                <p>Category</p>
-                <p>Name</p>
-                <p>price</p>
-            </div>
-            <div>{products}</div>
-        </div>
-
-
+        <Paper variant="outlined" className={classes.root}>
+            <h1 className={classes.header}>Products</h1>
+            <Grid container>
+                <Grid item className={classes.item}>Name</Grid>
+                <Grid item className={classes.item}>Category</Grid>
+                <Grid item className={classes.item}>Price</Grid>
+            </Grid>
+            <Grid container direction="column">{products}</Grid>
+        </Paper>
     )
 
 }

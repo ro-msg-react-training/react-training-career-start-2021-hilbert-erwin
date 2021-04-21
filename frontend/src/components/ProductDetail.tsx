@@ -1,4 +1,5 @@
-import '../styles/ProductDetail.css'
+import Grid from '@material-ui/core/Grid';
+import { useProductDetailStyles } from '../styles/ProductDetailStyles';
 
 interface ProductProp {
     name: string;
@@ -7,13 +8,14 @@ interface ProductProp {
 }
 
 function ProductDetail(props: ProductProp) {
-    return(
-        <div>
-            <p>{props.name}</p>
-            <p>{props.category}</p>
-            <p>{props.price}</p>
-        </div>
-    
+    const classes = useProductDetailStyles();
+    return (
+        <Grid container>
+            <Grid item className={classes.item}>{props.name}</Grid>
+            <Grid item className={classes.item}>{props.category}</Grid>
+            <Grid item className={classes.item}>{props.price}</Grid>
+        </Grid>
+
     );
 }
 
