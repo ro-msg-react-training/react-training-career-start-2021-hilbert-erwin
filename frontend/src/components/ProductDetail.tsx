@@ -4,7 +4,8 @@ import { useProductDetailStyles } from '../styles/ProductDetailStyles';
 interface ProductProp {
     name: string;
     category: string;
-    price: number
+    price: number,
+    id: number
 }
 
 function ProductDetail(props: ProductProp) {
@@ -13,7 +14,7 @@ function ProductDetail(props: ProductProp) {
         <Grid container>
             <Grid item className={classes.item}>{props.name}</Grid>
             <Grid item className={classes.item}>{props.category}</Grid>
-            <Grid item className={classes.item}>{props.price}</Grid>
+            <Grid item className={classes.item}>{props.price} RON</Grid>
         </Grid>
 
     );
