@@ -28,9 +28,9 @@ function ProductList() {
   const classes = useProductListStyles();
   let history = useHistory();
   let products = data.map((product, index) => (
-    <Grid container>
+    <Grid container key={index}>
       <Grid item className={classes.detail}>
-        <ProductDetail key={index} {...product} />
+        <ProductDetail {...product} />
       </Grid>
       <Grid item className={classes.viewButton}>
         <Button
