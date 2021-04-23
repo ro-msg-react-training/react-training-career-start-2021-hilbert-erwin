@@ -1,23 +1,28 @@
-import Grid from '@material-ui/core/Grid';
-import { useProductDetailStyles } from '../styles/ProductDetailStyles';
+import Grid from "@material-ui/core/Grid";
+import { useProductDetailStyles } from "../styles/ProductDetailStyles";
 
 interface ProductProp {
-    name: string;
-    category: string;
-    price: number,
-    id: number
+  name: string;
+  category: string;
+  price: number;
+  id: number;
 }
 
 function ProductDetail(props: ProductProp) {
-    const classes = useProductDetailStyles();
-    return (
-        <Grid container>
-            <Grid item className={classes.item}>{props.name}</Grid>
-            <Grid item className={classes.item}>{props.category}</Grid>
-            <Grid item className={classes.item}>{props.price} RON</Grid>
-        </Grid>
-
-    );
+  const classes = useProductDetailStyles();
+  return (
+    <Grid container>
+      <Grid item className={classes.item}>
+        {props.name}
+      </Grid>
+      <Grid item className={classes.item}>
+        {props.category}
+      </Grid>
+      <Grid item className={classes.item}>
+        {props.price} RON
+      </Grid>
+    </Grid>
+  );
 }
 
 export default ProductDetail;
