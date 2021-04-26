@@ -2,32 +2,31 @@ import ProductDetail from "./ProductDetail";
 import { Grid, Paper, Button } from "@material-ui/core";
 import { useProductListStyles } from "../styles/ProductListStyles";
 import { useHistory } from "react-router-dom";
-
-let data = [
-  {
-    name: "product1",
-    category: "category1",
-    price: 15,
-    id: 1,
-  },
-  {
-    name: "product2",
-    category: "category1",
-    price: 30,
-    id: 2,
-  },
-  {
-    name: "product3",
-    category: "category2",
-    price: 10,
-    id: 3,
-  },
-];
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { url } from "../api/Api";
+import Product from "../model/Product";
 
 function ProductList() {
+  useEffect(() => {
+    async function get() {
+      let response = await axios.get(`${url}/products`);
+      setProductList(response.data);
+    }
+    get();
+  });
+
+  const [productList, setProductList] = useState([
+    {
+      name: "",
+      category: "",
+      price: 0,
+      id: 0,
+    },
+  ]);
   const classes = useProductListStyles();
   let history = useHistory();
-  let products = data.map((product, index) => (
+  let products = productList.map((product: Product, index: number) => (
     <Grid container key={index}>
       <Grid item className={classes.detail}>
         <ProductDetail {...product} />

@@ -1,14 +1,8 @@
 import Grid from "@material-ui/core/Grid";
 import { useProductDetailStyles } from "../styles/ProductDetailStyles";
+import Product from "../model/Product";
 
-interface ProductProp {
-  name: string;
-  category: string;
-  price: number;
-  id: number;
-}
-
-function ProductDetail(props: ProductProp) {
+function ProductDetail(props: Product) {
   const classes = useProductDetailStyles();
   return (
     <Grid container>

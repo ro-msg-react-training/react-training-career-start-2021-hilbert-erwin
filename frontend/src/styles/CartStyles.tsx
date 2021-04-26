@@ -1,6 +1,6 @@
 import { makeStyles, Theme } from "@material-ui/core";
 
-export const useProductListStyles = makeStyles((theme: Theme) => ({
+export const useCartStyles = makeStyles((theme: Theme) => ({
   root: {
     width: "75%",
     margin: "auto",
@@ -9,10 +9,25 @@ export const useProductListStyles = makeStyles((theme: Theme) => ({
     paddingBottom: "20px",
   },
   item: {
-    width: "25%",
+    width: "33.33%",
     textAlign: "left",
     fontSize: "30px",
     fontWeight: "bold",
+    paddingLeft: "25px",
+    paddingBottom: "10px",
+  },
+  quantity: {
+    width: "10%",
+    textAlign: "left",
+    fontSize: "30px",
+    fontWeight: "bold",
+    paddingLeft: "25px",
+    paddingBottom: "10px",
+  },
+  text: {
+    width: "10%",
+    textAlign: "left",
+    fontSize: "30px",
     paddingLeft: "25px",
     paddingBottom: "10px",
   },
@@ -22,10 +37,11 @@ export const useProductListStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.primary.main,
   },
   detail: {
-    width: "90%",
+    width: "70%",
   },
   viewButton: {
-    width: "10%",
+    width: "15%",
+    marginLeft: "50px",
   },
   cart: {
     margin: "30px",
