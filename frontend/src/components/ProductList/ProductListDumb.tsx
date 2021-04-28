@@ -1,32 +1,18 @@
-import ProductDetail from "./ProductDetail";
+import ProductDetail from "../ProductDetail";
 import { Grid, Paper, Button } from "@material-ui/core";
-import { useProductListStyles } from "../styles/ProductListStyles";
-import { useHistory } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { url } from "../api/Api";
-import Product from "../model/Product";
+import { useProductListStyles } from "../../styles/ProductList.styles";
+import Product from "../../model/Product";
 
-function ProductList() {
-  useEffect(() => {
-    async function get() {
-      let response = await axios.get(`${url}/products`);
-      setProductList(response.data);
-    }
-    get();
-  });
+interface ProductListProps {
+  productList: Product[];
+  goToProduct: (id: number) => void;
+  goToCart: () => void;
+}
 
-  const [productList, setProductList] = useState([
-    {
-      name: "",
-      category: "",
-      price: 0,
-      id: 0,
-    },
-  ]);
+function ProductListDumb(props: ProductListProps) {
   const classes = useProductListStyles();
-  let history = useHistory();
-  let products = productList.map((product: Product, index: number) => (
+
+  let products = props.productList.map((product: Product, index: number) => (
     <Grid container key={index}>
       <Grid item className={classes.detail}>
         <ProductDetail {...product} />
@@ -36,7 +22,7 @@ function ProductList() {
           variant="outlined"
           color="primary"
           onClick={() => {
-            history.push(`/products/${product.id}`);
+            props.goToProduct(product.id);
           }}
         >
           View
@@ -57,7 +43,7 @@ function ProductList() {
             variant="outlined"
             color="primary"
             onClick={() => {
-              history.push("/cart");
+              props.goToCart();
             }}
           >
             Cart
@@ -82,4 +68,4 @@ function ProductList() {
   );
 }
 
-export default ProductList;
+export default ProductListDumb;

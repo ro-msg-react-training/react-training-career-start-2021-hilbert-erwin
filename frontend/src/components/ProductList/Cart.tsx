@@ -1,10 +1,10 @@
-import { useCartStyles } from "../styles/CartStyles";
+import { useCartStyles } from "../../styles/Cart.styles";
 import { Paper, Grid, Button } from "@material-ui/core";
 import { useHistory } from "react-router";
-import ProductDetail from "./ProductDetail";
-import CartItem from "../model/CartItem";
+import ProductDetail from "../ProductDetail";
+import CartItem from "../../model/CartItem";
 import axios from "axios";
-import { url } from "../api/Api";
+import { url } from "../../api/Api";
 
 const productList = [
   {

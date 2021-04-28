@@ -1,6 +1,7 @@
-import ProductList from "./components/ProductList";
-import ProductView from "./components/ProductView";
-import Cart from "./components/Cart";
+import ProductListSmart from "./components/ProductList/ProductListSmart";
+import ProductViewSmart from "./components/ProductView/ProductViewSmart";
+import PageNotFound from "./components/PageNotFound";
+import Cart from "./components/ProductList/Cart";
 import { ThemeProvider } from "@material-ui/core/styles";
 import { CssBaseline, Button } from "@material-ui/core/";
 import appTheme from "./styles/AppTheme";
@@ -26,9 +27,10 @@ function App() {
           <Route exact path="/">
             <Redirect to="/products" />
           </Route>
-          <Route exact path="/products" component={ProductList} />
-          <Route path="/products/:id" component={ProductView} />
+          <Route exact path="/products" component={ProductListSmart} />
+          <Route path="/products/:id" component={ProductViewSmart} />
           <Route path="/cart" component={Cart} />
+          <Route path="*" component={PageNotFound} />
         </Switch>
       </CssBaseline>
     </ThemeProvider>
