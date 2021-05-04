@@ -15,22 +15,11 @@ import {
   productViewFetchProduct,
   productViewUpdateProduct,
 } from "../../actions/ProductViewActions";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProductDetail from "../../model/ProductDetail";
+import { REPL_MODE_SLOPPY } from "node:repl";
 
 interface ProductUpdateSmartProps {
-  productViewSetProductName: (name: string) => void;
-  productViewSetProductCategory: (category: string) => void;
-  productViewSetProductDescription: (description: string) => void;
-  productViewSetProductImage: (image: string) => void;
-  productViewSetProductPrice: (price: number) => void;
-  productViewAddProduct: (
-    name: string,
-    category: string,
-    description: string,
-    image: string,
-    price: number
-  ) => void;
   name: string;
   description: string;
   category: string;
@@ -38,14 +27,44 @@ interface ProductUpdateSmartProps {
   price: number;
   id: number;
   isLoading: boolean;
+  productViewSetProductName: (name: string) => void;
+  productViewSetProductCategory: (category: string) => void;
+  productViewSetProductDescription: (description: string) => void;
+  productViewSetProductImage: (image: string) => void;
+  productViewSetProductPrice: (price: number) => void;
   productViewSetProduct: (product: ProductDetail) => void;
   productViewFetchProduct: (id: number) => void;
   productViewUpdateProduct: (product: ProductDetail) => void;
+  productViewAddProduct: (
+    name: string,
+    category: string,
+    description: string,
+    image: string,
+    price: number
+  ) => void;
 }
 
 function ProductUpdateSmart(props: ProductUpdateSmartProps) {
+  const [submitEnabled, setSubmitEnabled] = useState(false);
   let history = useHistory();
   const { id } = useParams<{ id?: string | undefined }>();
+
+  function validate(): void {
+    if (
+      props.name.length === 0 ||
+      props.category.length === 0 ||
+      props.description.length === 0 ||
+      props.image.length === 0
+    ) {
+      setSubmitEnabled(false);
+      return;
+    }
+    if (isNaN(props.price)) {
+      setSubmitEnabled(false);
+      return;
+    }
+    setSubmitEnabled(true);
+  }
 
   function getButtonText(): string {
     if (id === undefined) {
@@ -142,11 +161,13 @@ function ProductUpdateSmart(props: ProductUpdateSmartProps) {
       setDescription={props.productViewSetProductDescription}
       setImage={props.productViewSetProductImage}
       setPrice={props.productViewSetProductPrice}
+      validate={validate}
       name={props.name}
       category={props.category}
       image={props.image}
       description={props.description}
       price={props.price}
+      submitEnabled={submitEnabled}
     ></ProductUpdateDumb>
   );
 }

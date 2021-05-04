@@ -11,11 +11,13 @@ interface ProductUpdateDumbProps {
   setDescription: (description: string) => void;
   setImage: (image: string) => void;
   setPrice: (price: number) => void;
+  validate: () => void;
   name: string;
   category: string;
   price: number;
   description: string;
   image: string;
+  submitEnabled: boolean;
 }
 
 function ProductUpdateDumb(props: ProductUpdateDumbProps) {
@@ -31,7 +33,10 @@ function ProductUpdateDumb(props: ProductUpdateDumbProps) {
             className={classes.input}
             label="Name"
             variant="outlined"
-            onChange={(e) => props.setName(e.target.value)}
+            onChange={(e) => {
+              props.validate();
+              props.setName(e.target.value);
+            }}
             value={props.name}
           ></TextField>
         </Grid>
@@ -40,7 +45,10 @@ function ProductUpdateDumb(props: ProductUpdateDumbProps) {
             className={classes.input}
             label="Category"
             variant="outlined"
-            onChange={(e) => props.setCategory(e.target.value)}
+            onChange={(e) => {
+              props.validate();
+              props.setCategory(e.target.value);
+            }}
             value={props.category}
           ></TextField>
         </Grid>
@@ -49,7 +57,10 @@ function ProductUpdateDumb(props: ProductUpdateDumbProps) {
             className={classes.input}
             label="Image"
             variant="outlined"
-            onChange={(e) => props.setImage(e.target.value)}
+            onChange={(e) => {
+              props.validate();
+              props.setImage(e.target.value);
+            }}
             value={props.image}
           ></TextField>
         </Grid>
@@ -58,7 +69,10 @@ function ProductUpdateDumb(props: ProductUpdateDumbProps) {
             className={classes.input}
             label="Price"
             variant="outlined"
-            onChange={(e) => props.setPrice(parseInt(e.target.value))}
+            onChange={(e) => {
+              props.validate();
+              props.setPrice(parseInt(e.target.value));
+            }}
             value={props.price}
           ></TextField>
         </Grid>
@@ -69,7 +83,10 @@ function ProductUpdateDumb(props: ProductUpdateDumbProps) {
             variant="outlined"
             multiline
             rows={4}
-            onChange={(e) => props.setDescription(e.target.value)}
+            onChange={(e) => {
+              props.validate();
+              props.setDescription(e.target.value);
+            }}
             value={props.description}
           ></TextField>
         </Grid>
@@ -88,10 +105,14 @@ function ProductUpdateDumb(props: ProductUpdateDumbProps) {
         </Grid>
         <Grid item className={classes.items}>
           <Button
+            disabled={!props.submitEnabled}
             variant="outlined"
             color="primary"
             onClick={() => {
-              props.buttonFunction();
+              console.log(props.submitEnabled);
+              if (props.submitEnabled) {
+                props.buttonFunction();
+              }
             }}
           >
             {props.buttonText}
