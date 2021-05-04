@@ -1,4 +1,4 @@
-import ProductDetail from "../ProductDetail";
+import ProductDetail from "./ProductDetail";
 import { Grid, Paper, Button } from "@material-ui/core";
 import { useProductListStyles } from "../../styles/ProductList.styles";
 import Product from "../../model/Product";
@@ -7,6 +7,7 @@ interface ProductListProps {
   productList: Product[];
   goToProduct: (id: number) => void;
   goToCart: () => void;
+  goToAddProduct: () => void;
 }
 
 function ProductListDumb(props: ProductListProps) {
@@ -47,6 +48,18 @@ function ProductListDumb(props: ProductListProps) {
             }}
           >
             Cart
+          </Button>
+        </Grid>
+        <Grid item>
+          <Button
+            className={classes.cart}
+            variant="outlined"
+            color="primary"
+            onClick={() => {
+              props.goToAddProduct();
+            }}
+          >
+            Add
           </Button>
         </Grid>
       </Grid>

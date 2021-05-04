@@ -7,7 +7,7 @@ export interface CartState {
 }
 
 const initialState: CartState = {
-  isLoading: true,
+  isLoading: false,
   cartItems: [],
 };
 
@@ -16,27 +16,7 @@ export const CartReducer = (
   action: CartAction
 ): CartState => {
   switch (action.type) {
-    case CartActionTypes.CART_FETCH_CART_ITEMS_SUCCESS: {
-      return {
-        ...state,
-        cartItems: action.cartItems,
-        isLoading: false,
-      };
-    }
-    case CartActionTypes.CART_FETCH_CART_ITEMS_ERROR: {
-      console.log("failed to load products");
-      return {
-        ...state,
-        isLoading: false,
-      };
-    }
-    case CartActionTypes.CART_FETCH_CART_ITEMS: {
-      return {
-        ...state,
-        isLoading: true,
-      };
-    }
-    case CartActionTypes.CART_ADD_TO_CART_SUCCESS: {
+    case CartActionTypes.CART_ADD_TO_CART: {
       if (state.cartItems.some((e) => e.id === action.product.id)) {
         return {
           ...state,
@@ -49,29 +29,41 @@ export const CartReducer = (
               return e;
             }
           }),
-          isLoading: false,
+          isLoading: true,
         };
       } else {
-        let clone: CartItem[] = { ...state.cartItems };
+        let clone: CartItem[] = [...state.cartItems];
         clone[clone.length] = { ...action.product, quantity: 1 };
         return {
           ...state,
           cartItems: clone,
-          isLoading: false,
         };
       }
     }
-    case CartActionTypes.CART_ADD_TO_CART_ERROR: {
-      console.log("failed to add product to cart");
+    case CartActionTypes.CART_DELETE_FROM_CART: {
       return {
         ...state,
-        isLoading: false,
+        cartItems: state.cartItems.filter((e) => e.id !== action.id),
       };
     }
-    case CartActionTypes.CART_ADD_TO_CART: {
+    case CartActionTypes.CART_CHECKOUT: {
       return {
         ...state,
         isLoading: true,
+      };
+    }
+    case CartActionTypes.CART_CHECKOUT_SUCCESS: {
+      return {
+        ...state,
+        cartItems: [],
+        isLoading: false,
+      };
+    }
+    case CartActionTypes.CART_CHECKOUT_ERROR: {
+      console.log("error creating order");
+      return {
+        ...state,
+        isLoading: false,
       };
     }
     default:

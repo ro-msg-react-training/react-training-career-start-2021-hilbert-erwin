@@ -17,11 +17,15 @@ function ProductListSmart(props: ProductListSmartProps) {
   let history = useHistory();
 
   const goToProduct = (id: number) => {
-    history.push(`products/${id}`);
+    history.push(`/products/${id}`);
   };
 
   const goToCart = () => {
-    history.push("cart");
+    history.push("/cart");
+  };
+
+  const goToAddProduct = () => {
+    history.push("/products/add");
   };
 
   useEffect(() => {
@@ -36,6 +40,7 @@ function ProductListSmart(props: ProductListSmartProps) {
       productList={props.productList}
       goToProduct={goToProduct}
       goToCart={goToCart}
+      goToAddProduct={goToAddProduct}
     ></ProductListDumb>
   );
 }

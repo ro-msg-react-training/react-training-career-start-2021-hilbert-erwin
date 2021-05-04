@@ -1,6 +1,6 @@
 import Grid from "@material-ui/core/Grid";
-import { useProductDetailStyles } from "../styles/ProductDetail.styles";
-import Product from "../model/Product";
+import { useProductDetailStyles } from "../../styles/ProductDetail.styles";
+import Product from "../../model/Product";
 
 function ProductDetail(props: Product) {
   const classes = useProductDetailStyles();

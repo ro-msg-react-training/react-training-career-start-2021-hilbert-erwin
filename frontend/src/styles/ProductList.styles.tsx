@@ -4,12 +4,12 @@ export const useProductListStyles = makeStyles((theme: Theme) => ({
   root: {
     width: "75%",
     margin: "auto",
-    marginTop: "150px",
+    marginTop: "50px",
     borderRadius: "10px",
     paddingBottom: "20px",
   },
   item: {
-    width: "25%",
+    width: "33%",
     textAlign: "left",
     fontSize: "30px",
     fontWeight: "bold",

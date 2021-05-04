@@ -4,7 +4,7 @@ export const useCartStyles = makeStyles((theme: Theme) => ({
   root: {
     width: "75%",
     margin: "auto",
-    marginTop: "150px",
+    marginTop: "50px",
     borderRadius: "10px",
     paddingBottom: "20px",
   },

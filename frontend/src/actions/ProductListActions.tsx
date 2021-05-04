@@ -7,6 +7,7 @@ export enum ProductListActionTypes {
   PRODUCT_LIST_DELETE_PRODUCT = "PRODUCT_LIST_DELETE_PRODUCT",
   PRODUCT_LIST_DELETE_PRODUCT_SUCCESS = "PRODUCT_LIST_DELETE_PRODUCT_SUCCESS",
   PRODUCT_LIST_DELETE_PRODUCT_ERROR = "PRODUCT_LIST_DELETE_PRODUCT_ERROR",
+  PRODUCT_LIST_ADD_PRODUCT = "PRODUCT_LIST_ADD_PRODUCT",
 }
 
 export class ProductListFetchProductsAction {
@@ -52,13 +53,23 @@ export class ProductListDeleteProductErrorAction {
     ProductListActionTypes.PRODUCT_LIST_DELETE_PRODUCT_ERROR;
 }
 
+export class ProductListAddProductAction {
+  public readonly type = ProductListActionTypes.PRODUCT_LIST_ADD_PRODUCT;
+  public product: Product;
+
+  constructor(product: Product) {
+    this.product = product;
+  }
+}
+
 export type ProductListAction =
   | ProductListFetchProductsAction
   | ProductListFetchProductsSuccessAction
   | ProductListFetchProductsErrorAction
   | ProductListDeleteProductAction
   | ProductListDeleteProductSuccessAction
-  | ProductListDeleteProductErrorAction;
+  | ProductListDeleteProductErrorAction
+  | ProductListAddProductAction;
 
 export const productListFetchProducts = (): ProductListFetchProductsAction => {
   return {
@@ -102,5 +113,14 @@ export const productListDeleteProductSuccess = (
 export const productListDeleteProductError = (): ProductListDeleteProductErrorAction => {
   return {
     type: ProductListActionTypes.PRODUCT_LIST_DELETE_PRODUCT_ERROR,
+  };
+};
+
+export const productListAddProduct = (
+  product: Product
+): ProductListAddProductAction => {
+  return {
+    type: ProductListActionTypes.PRODUCT_LIST_ADD_PRODUCT,
+    product: product,
   };
 };

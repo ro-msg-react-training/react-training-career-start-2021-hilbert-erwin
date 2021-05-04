@@ -6,6 +6,7 @@ interface ProductViewProps {
   product: ProductDetail;
   addToCart: (product: ProductDetail) => void;
   deleteProduct: (product: ProductDetail) => void;
+  goToProductUpdate: () => void;
 }
 
 function ProductViewDumb(props: ProductViewProps) {
@@ -27,6 +28,16 @@ function ProductViewDumb(props: ProductViewProps) {
             }}
           >
             Add To Cart
+          </Button>
+          <Button
+            className={classes.cart}
+            variant="outlined"
+            color="primary"
+            onClick={() => {
+              props.goToProductUpdate();
+            }}
+          >
+            Edit
           </Button>
           <Button
             className={classes.cart}

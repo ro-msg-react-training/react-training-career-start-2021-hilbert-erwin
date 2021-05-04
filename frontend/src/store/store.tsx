@@ -1,6 +1,7 @@
 import { applyMiddleware, createStore } from "redux";
 import { ProductListState } from "../reducers/ProductListReducer";
 import { ProductViewState } from "../reducers/ProductViewReducer";
+import { CartState } from "../reducers/CartReducer";
 import rootReducer from "../reducers/rootRecucer";
 import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
@@ -17,4 +18,5 @@ sagaMiddleWare.run(rootSaga);
 export interface AppState {
   productList: ProductListState;
   productView: ProductViewState;
+  cart: CartState;
 }

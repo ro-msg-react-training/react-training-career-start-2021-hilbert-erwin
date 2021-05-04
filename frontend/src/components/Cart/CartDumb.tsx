@@ -1,55 +1,18 @@
 import { useCartStyles } from "../../styles/Cart.styles";
 import { Paper, Grid, Button } from "@material-ui/core";
-import { useHistory } from "react-router";
-import ProductDetail from "../ProductDetail";
+import ProductDetail from "../ProductList/ProductDetail";
 import CartItem from "../../model/CartItem";
-import axios from "axios";
-import { url } from "../../api/Api";
 
-const productList = [
-  {
-    name: "product1",
-    category: "category1",
-    price: 15,
-    quantity: 2,
-    id: 5,
-  },
-  {
-    name: "product2",
-    category: "category1",
-    price: 30,
-    quantity: 1,
-    id: 6,
-  },
-  {
-    name: "product3",
-    category: "category2",
-    price: 10,
-    quantity: 3,
-    id: 7,
-  },
-];
+interface CartProps {
+  cartItems: CartItem[];
+  checkout: () => void;
+  cartDeleteFromCart: (id: number) => void;
+}
 
-function Cart() {
+function CartDumb(props: CartProps) {
   const classes = useCartStyles();
-  let history = useHistory();
 
-  async function checkout() {
-    let data = {
-      customer: "doej",
-      products: [] as any,
-    };
-    productList.forEach((item) => {
-      data.products[data.products.length] = {
-        productId: item.id,
-        quantity: item.quantity,
-      };
-    });
-    await axios.post(`${url}/orders`, data);
-    history.push("/products");
-  }
-
-  let products = productList.map((product: CartItem, index: number) => (
+  let products = props.cartItems.map((product: CartItem, index: number) => (
     <Grid container key={index}>
       <Grid item className={classes.detail}>
         <ProductDetail {...product} />
@@ -58,7 +21,13 @@ function Cart() {
         {product.quantity}
       </Grid>
       <Grid item className={classes.viewButton}>
-        <Button variant="outlined" color="primary">
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={() => {
+            props.cartDeleteFromCart(product.id);
+          }}
+        >
           Delete
         </Button>
       </Grid>
@@ -76,8 +45,8 @@ function Cart() {
             className={classes.cart}
             variant="outlined"
             color="primary"
-            onClick={async () => {
-              await checkout();
+            onClick={() => {
+              props.checkout();
             }}
           >
             Checkout
@@ -107,4 +76,4 @@ function Cart() {
   );
 }
 
-export default Cart;
+export default CartDumb;

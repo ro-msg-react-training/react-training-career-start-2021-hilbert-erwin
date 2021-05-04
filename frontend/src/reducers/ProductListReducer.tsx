@@ -63,6 +63,14 @@ export const ProductListReducer = (
         isLoading: true,
       };
     }
+    case ProductListActionTypes.PRODUCT_LIST_ADD_PRODUCT: {
+      const productListClone = [...state.productList];
+      productListClone[productListClone.length] = action.product;
+      return {
+        ...state,
+        productList: productListClone,
+      };
+    }
     default:
       return state;
   }

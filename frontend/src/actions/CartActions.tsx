@@ -2,29 +2,11 @@ import ProductDetail from "../model/ProductDetail";
 import CartItem from "../model/CartItem";
 
 export enum CartActionTypes {
-  CART_FETCH_CART_ITEMS = "CART_FETCH_CART_ITEMS",
-  CART_FETCH_CART_ITEMS_SUCCESS = "CART_FETCH_CART_ITEMS_SUCCESS",
-  CART_FETCH_CART_ITEMS_ERROR = "CART_ITEMS_VIEW_FETCH_CART_ITEMS_ERROR",
   CART_ADD_TO_CART = "CART_ADD_TO_CART",
-  CART_ADD_TO_CART_SUCCESS = "CART_ADD_TO_CART_SUCCESS",
-  CART_ADD_TO_CART_ERROR = "CART_ADD_TO_CART_ERROR",
-}
-
-export class CartFetchCartItemsAction {
-  public readonly type = CartActionTypes.CART_FETCH_CART_ITEMS;
-}
-
-export class CartFetchCartItemsSuccessAction {
-  public readonly type = CartActionTypes.CART_FETCH_CART_ITEMS_SUCCESS;
-  public cartItems: CartItem[];
-
-  constructor(cartItems: CartItem[]) {
-    this.cartItems = cartItems;
-  }
-}
-
-export class CartFetchCartItemsErrorAction {
-  public readonly type = CartActionTypes.CART_FETCH_CART_ITEMS_ERROR;
+  CART_DELETE_FROM_CART = "CART_DELETE_FROM_CART",
+  CART_CHECKOUT = "CART_CHECKOUT",
+  CART_CHECKOUT_SUCCESS = "CART_CHECKOUT_SUCCESS",
+  CART_CHECKOUT_ERROR = "CART_CHECKOUT_ERROR",
 }
 
 export class CartAddToCartAction {
@@ -36,47 +18,38 @@ export class CartAddToCartAction {
   }
 }
 
-export class CartAddToCartSuccessAction {
-  public readonly type = CartActionTypes.CART_ADD_TO_CART_SUCCESS;
-  public product: ProductDetail;
+export class CartDeleteFromCartAction {
+  public readonly type = CartActionTypes.CART_DELETE_FROM_CART;
+  public id: number;
 
-  constructor(product: ProductDetail) {
-    this.product = product;
+  constructor(id: number) {
+    this.id = id;
   }
 }
 
-export class CartAddToCartErrorAction {
-  public readonly type = CartActionTypes.CART_ADD_TO_CART_ERROR;
+export class CartCheckoutAction {
+  public readonly type = CartActionTypes.CART_CHECKOUT;
+  public cartItems: CartItem[];
+
+  constructor(cartItems: CartItem[]) {
+    this.cartItems = cartItems;
+  }
+}
+
+export class CartCheckoutSuccessAction {
+  public readonly type = CartActionTypes.CART_CHECKOUT_SUCCESS;
+}
+
+export class CartCheckoutErrorAction {
+  public readonly type = CartActionTypes.CART_CHECKOUT_ERROR;
 }
 
 export type CartAction =
-  | CartFetchCartItemsAction
-  | CartFetchCartItemsSuccessAction
-  | CartFetchCartItemsErrorAction
   | CartAddToCartAction
-  | CartAddToCartSuccessAction
-  | CartAddToCartErrorAction;
-
-export const cartFetchCartItems = (): CartFetchCartItemsAction => {
-  return {
-    type: CartActionTypes.CART_FETCH_CART_ITEMS,
-  };
-};
-
-export const cartFetchCartItemsSuccess = (
-  cartItems: CartItem[]
-): CartFetchCartItemsSuccessAction => {
-  return {
-    type: CartActionTypes.CART_FETCH_CART_ITEMS_SUCCESS,
-    cartItems: cartItems,
-  };
-};
-
-export const cartFetchCartError = (): CartFetchCartItemsErrorAction => {
-  return {
-    type: CartActionTypes.CART_FETCH_CART_ITEMS_ERROR,
-  };
-};
+  | CartDeleteFromCartAction
+  | CartCheckoutAction
+  | CartCheckoutSuccessAction
+  | CartCheckoutErrorAction;
 
 export const cartAddToCart = (product: ProductDetail): CartAddToCartAction => {
   return {
@@ -85,17 +58,28 @@ export const cartAddToCart = (product: ProductDetail): CartAddToCartAction => {
   };
 };
 
-export const cartAddToCartSuccess = (
-  product: ProductDetail
-): CartAddToCartSuccessAction => {
+export const cartDeleteFromCart = (id: number): CartDeleteFromCartAction => {
   return {
-    type: CartActionTypes.CART_ADD_TO_CART_SUCCESS,
-    product: product,
+    type: CartActionTypes.CART_DELETE_FROM_CART,
+    id: id,
   };
 };
 
-export const cartAddToCartError = (): CartAddToCartErrorAction => {
+export const cartCheckout = (cartItems: CartItem[]): CartCheckoutAction => {
   return {
-    type: CartActionTypes.CART_ADD_TO_CART_ERROR,
+    type: CartActionTypes.CART_CHECKOUT,
+    cartItems: cartItems,
+  };
+};
+
+export const cartCheckoutSuccess = (): CartCheckoutSuccessAction => {
+  return {
+    type: CartActionTypes.CART_CHECKOUT_SUCCESS,
+  };
+};
+
+export const cartCheckoutError = (): CartCheckoutErrorAction => {
+  return {
+    type: CartActionTypes.CART_CHECKOUT_ERROR,
   };
 };
